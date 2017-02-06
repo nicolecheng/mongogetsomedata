@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import csv
 
-server = MongoClient()#'149.89.150.100')
+server = MongoClient('149.89.150.100')
 #print server
 
 db = server.mongeese 
@@ -17,20 +17,20 @@ peeps = db.peeps
 
 dict = {}
 
+listODocs = []
+
 for key in d1:
     doc = { 'name': key['name'], 'age': key['age'], '_id': key['id'] }
-    #print doc
-    peeps.insert_one( doc )
+    listODocs.append(doc)
 
 f2 = open('courses.csv')
 
 d2  = csv.DictReader(f2)
 
-courses = db.courses
-
 for key in d2:
-    db.peeps.update(
-        { "_id": key["id"]},
-        { $set : {"%s".format(key["course"]): key["mark"] } }
-        )
-    
+    for a in listODocs:
+        if a['_id'] == key["id"]:
+            a[key["code"]] = key['mark']
+
+for a in listODocs:
+    peeps.insert_one(a)
