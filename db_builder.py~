@@ -18,7 +18,7 @@ peeps = db.peeps
 dict = {}
 
 for key in d1:
-    doc = { 'name': key['name'], 'age': key['age'], 'id': key['id'] }
+    doc = { 'name': key['name'], 'age': key['age'], '_id': key['id'] }
     #print doc
     peeps.insert_one( doc )
 
@@ -29,5 +29,8 @@ d2  = csv.DictReader(f2)
 courses = db.courses
 
 for key in d2:
-    doc = { 'code': key['code'], 'mark': key['mark'], 'id': key['id'] }
-    courses.insert_one( doc )
+    db.peeps.update(
+        { _id: key["id"]},
+        { $set : {"%s".format(key["course"]): key["mark"] } }
+        )
+    

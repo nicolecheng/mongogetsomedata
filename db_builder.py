@@ -30,7 +30,7 @@ courses = db.courses
 
 for key in d2:
     db.peeps.update(
-        { _id: key["id"]},
+        { "_id": key["id"]},
         { $set : {"%s".format(key["course"]): key["mark"] } }
         )
     
