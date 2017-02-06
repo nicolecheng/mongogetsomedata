@@ -34,3 +34,7 @@ for key in d2:
 
 for a in listODocs:
     peeps.insert_one(a)
+
+#to test:
+#for a in listODocs:
+#    print a
