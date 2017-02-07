@@ -13,7 +13,7 @@ f1 = open('peeps.csv')
 
 d1 = csv.DictReader(f1)
 
-peeps = db.peeps
+peps = db.peps
 
 dict = {}
 
@@ -30,10 +30,12 @@ d2  = csv.DictReader(f2)
 for key in d2:
     for a in listODocs:
         if a['_id'] == key["id"]:
-            a[key["code"]] = key['mark']
+            ls = []
+            ls.append({key["code"] : key['mark']})
+            a['classes'] = ls
 
 for a in listODocs:
-    peeps.insert_one(a)
+    peps.insert_one(a)
 
 #to test:
 #for a in listODocs:

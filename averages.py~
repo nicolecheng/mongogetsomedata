@@ -1,0 +1,15 @@
+'''Using python and the database from the previous assignment write a program to do the following:
+Compute the average for each student.
+Display each students name, id and average.'''
+
+from pymongo import MongoClient
+
+db = server.mongeese
+peeps = db.peeps
+
+#{name, age, id, code:mark}
+
+person = peeps.find()
+
+for a in person:
+    print a
