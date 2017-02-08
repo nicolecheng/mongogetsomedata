@@ -5,7 +5,7 @@ Display each students name, id and average.'''
 from pymongo import MongoClient
 import csv
 
-server = MongoClient()#'149.89.150.100')
+server = MongoClient('127.0.0.1')#'149.89.150.100')
 db = server.mongeese
 thepeeps = db.thepeeps
 
@@ -36,9 +36,22 @@ for key in t:
     listODocs.append(doc)
 
 for a in listODocs:
-    students = thepeeps.find({'classes.code' : a['code']})
+#    students = thepeeps.find({'classes.code' : a['code']})
+# let's just find the students. his code makes no sense
+
+    studs = []
+    listOStudents = thepeeps.find()
+    for z in listOStudents:
+        for b in z:
+            if b == 'classes':
+                for c in z['classes']:
+                    for d in c:
+                        if d == a['code']:
+                            studs.append(z)
+                
+
     ls = []
-    for key in students:
+    for key in studs:
         ls.append(key['_id'])
     a['students'] = ls
 
