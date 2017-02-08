@@ -25,3 +25,26 @@ for a in people:
         sum += int(m.values()[0])
         count += 1
     print name+","+str(id)+","+str(float(sum)/float(count))
+
+ts = open('teachers.csv')
+t = csv.DictReader(ts)
+teachers = db.teachers
+
+listODocs = []
+for key in t:
+    doc = { 'code': key['code'], 'teacher': key['teacher'], 'period': key['period'] }
+    listODocs.append(doc)
+
+for a in listODocs:
+    students = thepeeps.find({'classes.code' : a['code']})
+    ls = []
+    for key in students:
+        ls.append(key['_id'])
+    a['students'] = ls
+
+for a in listODocs:
+    teachers.insert_one(a)
+
+#to test:
+#for a in listODocs:
+#    print a
