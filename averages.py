@@ -1,11 +1,7 @@
-'''Using python and the database from the previous assignment write a program to do the following:
-Compute the average for each student.
-Display each students name, id and average.'''
-
 from pymongo import MongoClient
 import csv
 
-server = MongoClient('127.0.0.1')#'149.89.150.100')
+server = MongoClient('149.89.150.100')
 db = server.mongeese
 thepeeps = db.thepeeps
 
@@ -61,3 +57,4 @@ for a in listODocs:
 #to test:
 #for a in listODocs:
 #    print a
+

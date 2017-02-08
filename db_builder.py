@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import csv
 
-server = MongoClient('127.0.0.1')#'149.89.150.100')
+server = MongoClient('149.89.150.100')
 #print server
 
 db = server.mongeese 
@@ -43,3 +43,4 @@ for a in listODocs:
 #to test:
 #for a in listODocs:
 #    print a
+
