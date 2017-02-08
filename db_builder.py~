@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from pymongo import MongoClient
 import csv
 
@@ -34,3 +35,50 @@ for key in d2:
 
 for a in listODocs:
     peeps.insert_one(a)
+=======
+from pymongo import MongoClient
+import csv
+
+server = MongoClient()#'149.89.150.100')
+#print server
+
+db = server.mongeese 
+#print db
+
+# peeps - name, age, id
+
+f1 = open('peeps.csv')
+
+d1 = csv.DictReader(f1)
+
+thepeeps = db.thepeeps
+
+dict = {}
+
+listODocs = []
+
+for key in d1:
+    doc = { 'name': key['name'], 'age': key['age'], '_id': key['id'] }
+    listODocs.append(doc)
+
+f2 = open('courses.csv')
+
+d2  = csv.DictReader(f2)
+
+for a in listODocs:
+    f2 = open('courses.csv')
+    d2  = csv.DictReader(f2)
+    ls = []
+    for key in d2:
+        #print "aid="+str(a['_id'])+"....key="+str(key['id'])
+        if a['_id'] == key['id']:
+           ls.append({key["code"] : key['mark']})
+    a['classes'] = ls
+
+for a in listODocs:
+    thepeeps.insert_one(a)
+
+#to test:
+#for a in listODocs:
+#    print a
+>>>>>>> fd5968fc110d3e25812743f956308dc8c3c6affd

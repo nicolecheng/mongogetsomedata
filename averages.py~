@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 '''Using python and the database from the previous assignment write a program to do the following:
 Compute the average for each student.
 Display each students name, id and average.'''
@@ -13,3 +14,55 @@ person = peeps.find()
 
 for a in person:
     print a
+=======
+'''Using python and the database from the previous assignment write a program to do the following:
+Compute the average for each student.
+Display each students name, id and average.'''
+
+from pymongo import MongoClient
+import csv
+
+server = MongoClient()#'149.89.150.100')
+db = server.mongeese
+thepeeps = db.thepeeps
+
+#{name, age, id, classes:[code:mark]}
+
+people = thepeeps.find()#{'classes'})
+
+for a in people:
+    #print a
+    name = a['name']
+    id = a['_id']
+    classes = a['classes']
+    sum = 0
+    count = 0
+    for m in classes:
+        #print m.values()
+        sum += int(m.values()[0])
+        count += 1
+    print name+","+str(id)+","+str(float(sum)/float(count))
+
+ts = open('teachers.csv')
+t = csv.DictReader(ts)
+teachers = db.teachers
+
+listODocs = []
+for key in t:
+    doc = { 'code': key['code'], 'teacher': key['teacher'], 'period': key['period'] }
+    listODocs.append(doc)
+
+for a in listODocs:
+    students = thepeeps.find({'classes.code' : a['code']})
+    ls = []
+    for key in students:
+        ls.append(key['_id'])
+    a['students'] = ls
+
+for a in listODocs:
+    teachers.insert_one(a)
+
+#to test:
+#for a in listODocs:
+#    print a
+>>>>>>> fd5968fc110d3e25812743f956308dc8c3c6affd
